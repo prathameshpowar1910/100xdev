@@ -7,6 +7,9 @@
 
 function countVowels(str) {
     // Your code here
+    const newstr = str.toLowerCase();
+    const count = newstr.match(/[aeiou]/g);
+    return count ? count.length : 0;
 }
 
 module.exports = countVowels;
