@@ -127,9 +127,32 @@ class Animal{
   }
 }
 
-Animal.myType()
+// Animal.myType()
 
 const dog = new Animal("dog", 4, "woof woof");
 const cat = new Animal("cat", 4, "meow meow");
-dog.speak();
-cat.speak();
+// dog.speak();
+// cat.speak();
+
+//? callback functions
+
+function square(n) {
+  return n*n
+}
+
+function cube(n) {
+  return n*n*n
+}
+
+function sumOfSomething(a,b,func) {
+  const val1 = func(a)
+  const val2 = func(b)
+
+  return val1 + val2
+}
+
+// console.log(sumOfSomething(2,3,cube))
+const ans = sumOfSomething(2,3,function(n){
+  return n*n*n
+})
+// console.log(ans)
