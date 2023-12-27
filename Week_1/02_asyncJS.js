@@ -53,11 +53,11 @@
 //* 2. Promises
 // A promise is an object that may produce a single value some time in the future
 // either a resolved value or a reason that it's not resolved
-// A promise may be in one of 3 possible states: fulfilled, rejected, or pending
-// Promise users can attach callbacks to handle the fulfilled value or the reason for rejection
+// A promise may be in one of 3 possible states: resolved, rejected, or pending
+// Promise users can attach callbacks to handle the resolved value or the reason for rejection
 // Promises are eager, meaning that a promise will start doing whatever task you give it as soon as the promise constructor is invoked
 // Promises can be consumed by registering functions using .then and .catch methods
-// .then() is invoked when a promise is fulfilled
+// .then() is invoked when a promise is resolved
 // .catch() is invoked when a promise is rejected
 // Promises are chainable
 
@@ -116,12 +116,31 @@
 //   }
 // }
 
-const fs = require("fs");
+// const fs = require("fs");
 
-fs.readFile("file.txt", "utf8", (err, data) => {
-  if (err) throw err;
+// fs.readFile("file.txt", "utf8", (err, data) => {
+  // if (err) throw err;
+  // console.log(data);
+// });
+
+// console.log("This is a message")
+
+
+// async/await 
+
+function myAsyncFunction(name) {
+  return new Promise((resolve)=>{
+    setTimeout(() => {
+      resolve(`my name is ${name}`)
+    }, 2000);
+  }); 
+}
+
+async function main() {
+  // const data = myAsyncFunction("prathamesh"); // this will return a promise
+  const data = await myAsyncFunction("prathamesh");
   console.log(data);
-});
+}
 
+main();
 console.log("This is a message")
-
