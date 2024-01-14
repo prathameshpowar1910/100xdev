@@ -28,3 +28,21 @@
 //? what is the difference between javascript and ecmascript?
 // javascript is a programming language while ecmascript is a set of rules that javascript follows
 
+//? what is nodejs?
+// nodejs is a runtime environment for javascript
+// it is a platform that allows javascript to run on the server side
+
+//? this is how you create a nodejs server using the http module
+// import http from "http";
+// import { hostname } from "os";
+// const port = 3000;
+// const server = http.createServer((req, res) => {
+//   res.statusCode = 200;
+//   res.setHeader("Content-Type", "text/plain");
+//   res.end("Hello World");
+// })
+
+// server.listen(port, hostname, () => {
+//   console.log(`Server running at http://${hostname}:${port}/`);
+// })
+
