@@ -46,3 +46,29 @@
 //   console.log(`Server running at http://${hostname}:${port}/`);
 // })
 
+import express from "express";
+const app = express();
+
+// app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(express.json()); // for parsing application/json
+app.use(express.static("public")); // for serving static files
+
+app.get("/", (req, res) => {
+  console.log(req.body); // for body parameters
+  console.log(req.query); // for query parameters
+  res.send("This is Get");
+});
+
+app.get("/:name", (req, res) => {
+  // console.log(`hi ${req.params.name}`);
+  // console.log(`hi ${req.params["name"]}`);
+  res.send(`hi ${req.params.name}`); // for dynamic parameters
+})
+
+app.post("/", (req, res) => {
+  res.send("This is Post");
+});
+
+app.listen(3000, () => {
+  console.log("Server is running on port 3000");
+});
