@@ -13,6 +13,7 @@ const app = express();
 
 function rateLimitter(req,res,next) {
   const userId = req.headers["user-id"];
+  numberOfRequestsForUser[userId] = numberOfRequestsForUser[userId] + 1 || 1;
   if (numberOfRequestsForUser[userId] > 5) {
     res.status(404).json({"msg":"Not Found"});
     return;
@@ -21,6 +22,8 @@ function rateLimitter(req,res,next) {
   }
   
 }
+
+app.use(rateLimitter);
 
 let numberOfRequestsForUser = {};
 setInterval(() => {
