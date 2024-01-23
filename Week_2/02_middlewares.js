@@ -57,6 +57,18 @@ app.get("/kidney-length", (req, res) => {
   });
 });
 
+app.get("/user", (req, res) => {
+  const user = req.body.user;
+  const response = objSchema.safeParse(user);
+
+  if (!response.success) {
+    res.status(400).json({ msg: "Bad Request" });
+  }
+  res.send({
+    response,
+  });
+})
+
 //global catches
 app.use((err, req, res, next) => {
   res.status(500).json({
