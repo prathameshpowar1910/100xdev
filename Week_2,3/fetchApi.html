@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button onclick="return getData()" style="height: 20px;" >GET THAT DATA</button>
+</body>
+<script>
+  function getData(){
+    fetch('https://random-data-api.com/api/v2/users?size=2&is_xml=true')
+    .then(response => response.json())
+    .then(json => console.log(json))
+  }
+</script>
+</html>
