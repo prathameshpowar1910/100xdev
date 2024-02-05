@@ -24,8 +24,9 @@ function userExists(username, password) {
 }
 
 app.post("/signup", async function (req, res) {
-  const user = new User(req.body);
-  await user.save();
+  await User.create(req.body);
+  // const user = new User(req.body);
+  // await user.save();
   return res.json({
     msg: "User created",
   });

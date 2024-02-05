@@ -10,7 +10,7 @@ const objSchema = zod.object({
   password: zod.string().min(10).max(100),
   country: zod.literal("IN").or(zod.literal("US")),
   age: zod.number().min(18).max(100),
-})
+});
 
 app.use(express.json());
 
@@ -67,7 +67,22 @@ app.get("/user", (req, res) => {
   res.send({
     response,
   });
-})
+});
+
+function heightChecker(req, res, next) {
+  const height = req.query.height;
+  if (height < 150) {
+    res.status(401).json({ msg: "Unauthorized" });
+  } else {
+    next();
+  }
+}
+
+app.get("/ride1", heightChecker, (req, res) => {
+  res.json({
+    msg: "welcome to ride 1",
+  });
+});
 
 //global catches
 app.use((err, req, res, next) => {
