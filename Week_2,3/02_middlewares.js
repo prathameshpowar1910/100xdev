@@ -77,12 +77,18 @@ function heightChecker(req, res, next) {
     next();
   }
 }
-
-app.get("/ride1", heightChecker, (req, res) => {
+app.use(heightChecker);
+app.get("/ride1", (req, res) => {
   res.json({
     msg: "welcome to ride 1",
   });
 });
+
+app.get("/ride2", (req,res)=>{
+  res.json({
+    msg: "welcome to ride 2",
+  });
+})
 
 //global catches
 app.use((err, req, res, next) => {
