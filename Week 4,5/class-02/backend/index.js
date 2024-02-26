@@ -1,10 +1,11 @@
 import express, { json } from "express";
 import { createTodo, updateTodo } from "./types.js";
+import { Todo } from "./db.js";
 const app = express();
 
 app.use(json());
 
-app.post("/todo", (req, res) => {
+app.post("/todo", async (req, res) => {
   const createPayload = req.body;
   const parsedPayload = createTodo.safeParse(createPayload);
 
@@ -15,11 +16,28 @@ app.post("/todo", (req, res) => {
     return;
   }
   //put it in mongodb
+  const todo = await Todo.create({
+    title: parsedPayload.data.title,
+    description: parsedPayload.data.description,
+    completed: false,
+  });
+
+  res.json({
+    msg: "Todo created",
+    todo,
+    ddddd,
+  });
 });
 
-app.get("/todos", (req, res) => {});
+app.get("/todos", async (req, res) => {
+  const todos = await Todo.find({});
 
-app.put("/completed", (req, res) => {
+  res.json({
+    todos,
+  });
+});
+
+app.put("/completed", async (req, res) => {
   const updatePayload = req.body;
   const parsedPayload = updateTodo.safeParse(updatePayload);
 
@@ -29,6 +47,19 @@ app.put("/completed", (req, res) => {
     });
     return;
   }
+
+  await Todo.updateOne(
+    {
+      _id: parsedPayload.data.id,
+    },
+    {
+      completed: true,
+    }
+  );
+
+  res.json({
+    msg: "Todo updated",
+  });
 });
 
 app.listen(3000, () => {
