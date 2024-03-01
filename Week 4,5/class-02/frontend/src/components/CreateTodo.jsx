@@ -17,8 +17,15 @@ export function CreateTodo() {
         description: description,
       }),
     })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then(async (response)=>{
+        console.log(response)
+        if(response.ok){
+          console.log("response is ok")
+        }
+        else{
+          console.log("response is not ok")
+        }
+      })
   };
 
   return (
