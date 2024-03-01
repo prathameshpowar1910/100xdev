@@ -1,9 +1,13 @@
 import express, { json } from "express";
 import { createTodo, updateTodo } from "./types.js";
 import { Todo } from "./db.js";
+import cors from "cors";
 const app = express();
 
 app.use(json());
+app.use(cors({
+  origin: "http://localhost:5173",
+}));
 
 app.post("/todo", async (req, res) => {
   const createPayload = req.body;
@@ -25,7 +29,6 @@ app.post("/todo", async (req, res) => {
   res.json({
     msg: "Todo created",
     todo,
-    ddddd,
   });
 });
 
