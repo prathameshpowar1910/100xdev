@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 export function CreateTodo() {
   //react-query is optimal way
 
@@ -11,8 +13,8 @@ export function CreateTodo() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title: "title",
-        description: "description",
+        title: title,
+        description: description,
       }),
     })
       .then((response) => response.json())
@@ -29,6 +31,9 @@ export function CreateTodo() {
           padding: "10px",
           margin: "10px 0",
         }}
+        onChange={(e) => {
+          setTitle(e.target.value);
+        }}
         type="text"
         placeholder="title"
       />{" "}
@@ -40,6 +45,9 @@ export function CreateTodo() {
           fontSize: "20px",
           padding: "10px",
           margin: "10px 0",
+        }}
+        onChange={(e) => {
+          setDescription(e.target.value);
         }}
         type="text"
         placeholder="description"
