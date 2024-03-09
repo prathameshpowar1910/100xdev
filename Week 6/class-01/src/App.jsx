@@ -1,5 +1,5 @@
 import './App.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 // import Header from './components/Header'
 // import HeaderWithButton from './components/HeaderWithButton'
 
@@ -62,24 +62,24 @@ import { useState } from 'react'
 //   description: PropTypes.string.isRequired
 // };
 
-function App() {
-  return (
-    <>
-    <CardWrapper>
-      hello world
-    </CardWrapper>
-    {/* <CardWrapper innerComponent={<TextComponent />} /> */}
-    </>
-  )
-}
+// function App() {
+//   return (
+//     <>
+//     <CardWrapper>
+//       hello world
+//     </CardWrapper>
+//     {/* <CardWrapper innerComponent={<TextComponent />} /> */}
+//     </>
+//   )
+// }
 
-function CardWrapper({children}) {
-  return (
-    <div style={{border:"2px solid black"}}>
-      {children}
-    </div>
-  )
-}
+// function CardWrapper({children}) {
+//   return (
+//     <div style={{border:"2px solid black"}}>
+//       {children}
+//     </div>
+//   )
+// }
 
 // function TextComponent() {
 //   return (
@@ -94,5 +94,41 @@ function CardWrapper({children}) {
 //     </div>
 //   )
 // }
+
+//?todos
+
+function App() {
+  const [todos, setTodos] = useState([]);
+  const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    fetch('https://sum-server.100xDevs.com/todos')
+      .then(response => response.json())
+      .then(data => setTodos(data.todos));
+  }, [counter]);
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>Todo App</h1>
+        <button onClick={() => setCounter(counter + 1)}>Change todos</button>
+        {todos.map(todo => (
+          <Todo key={todo.id} id={todo.id} title={todo.title} description={todo.description} completed={todo.completed} />
+        ))}
+      </header>
+    </div>
+  );
+}
+
+function Todo({ id, title, description, completed }) {
+  return (
+    <div>
+      <h3>{id}</h3>
+      <h1>{title}</h1>
+      <p>{description}</p>
+      <p>{completed ? "Completed" : "Incomplete"}</p>
+    </div>
+  );
+}
 
 export default App;
