@@ -32,63 +32,123 @@
 
 // export default App
 
+//? useTodos custom hook
+// import { useEffect, useState } from 'react'
+// import axios from 'axios'
+
+// function useTodos(n) {
+//   const [todos, setTodos] = useState([])
+//   const [loading, setLoading] = useState(true)
+
+//   useEffect(() => {
+//     // setTimeout(() => {
+//     //   axios.get("https://sum-server.100xdevs.com/todos")
+//     //     .then(res => {
+//     //       setTodos(res.data.todos);
+//     //       setLoading(false);
+//     //     })
+//     // },1000)
+//     setLoading(true);
+//     const value = setInterval(() => {
+//       axios.get("https://sum-server.100xdevs.com/todos")
+//         .then(res => {
+//           setTodos(res.data.todos);
+//           setLoading(false);
+//         })
+//     },1000 * n )
+
+//     axios.get("https://sum-server.100xdevs.com/todos")
+//     .then(res => {
+//       setTodos(res.data.todos);
+//       setLoading(false);
+//     })
+
+//     return () => {
+//       clearInterval(value);
+//     }
+//   }, [n])
+
+//   return {todos, loading};
+// }
+
+// function App() {
+//   const {todos, loading} = useTodos(2);
+//   if(loading) {
+//     return <h1>Loading...</h1>
+//   }
+//   return (
+//     <>
+//       {todos.map(todo => <Track todo={todo} />)}
+//     </>
+//   )
+// }
+
+// function Track({ todo }) {
+//   return <div>
+//     {todo.title}
+//     <br />
+//     {todo.description}
+//   </div>
+// }
+
+// export default App
+
+
+//? useIsOnline custom hook
+// import { useEffect, useState } from 'react'
+
+// function useIsOnline() {
+//   const [isOnline, setIsOnline] = useState(window.navigator.onLine);
+
+//   useEffect(() => {
+//     window.addEventListener('online', () => setIsOnline(true));
+//     window.addEventListener('offline', () => setIsOnline(false));
+//   }, [])
+
+//   return isOnline;
+// }
+
+// function App() {
+//   const isOnline = useIsOnline();
+
+//   return (
+//     <>
+//       {isOnline ? "You are online yay!" : "You are not online"}
+//     </>
+//   )
+// }
+
+// export default App
+
+//? useMousePointer custom hook
+
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 
+const useMousePointer = () => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
 
-function useTodos(n) {
-  const [todos, setTodos] = useState([])
-  const [loading, setLoading] = useState(true)
+  const handleMouseMove = (e) => {
+    setPosition({ x: e.clientX, y: e.clientY });
+  };
 
   useEffect(() => {
-    // setTimeout(() => {
-    //   axios.get("https://sum-server.100xdevs.com/todos")
-    //     .then(res => {
-    //       setTodos(res.data.todos);
-    //       setLoading(false);
-    //     })
-    // },1000)
-    setLoading(true);
-    const value = setInterval(() => {
-      axios.get("https://sum-server.100xdevs.com/todos")
-        .then(res => {
-          setTodos(res.data.todos);
-          setLoading(false);
-        })
-    },1000 * n )
-
-    axios.get("https://sum-server.100xdevs.com/todos")
-    .then(res => {
-      setTodos(res.data.todos);
-      setLoading(false);
-    })
-
+    window.addEventListener('mousemove', handleMouseMove);
     return () => {
-      clearInterval(value);
-    }
-  }, [n])
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
-  return {todos, loading};
-}
+  return position;
+};
 
 function App() {
-  const {todos, loading} = useTodos(2);
-  if(loading) {
-    return <h1>Loading...</h1>
-  }
+  const mousePointer = useMousePointer();
+
   return (
     <>
-      {todos.map(todo => <Track todo={todo} />)}
+      Your mouse position is {mousePointer.x} {mousePointer.y}
     </>
   )
-}
-
-function Track({ todo }) {
-  return <div>
-    {todo.title}
-    <br />
-    {todo.description}
-  </div>
 }
 
 export default App
