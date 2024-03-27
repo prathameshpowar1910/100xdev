@@ -1,0 +1,4 @@
+**How does TypeScript Code run?**
+- TypeScript code is compiled into JavaScript code using the TypeScript compiler. The TypeScript compiler is a command-line tool that can be installed using npm. The TypeScript compiler takes a TypeScript file as input and generates a JavaScript file as output. The generated JavaScript file can then be executed by a JavaScript engine, such as the V8 engine used by Google Chrome.
+- TypeScript never runs on the browser
+- Type checking is done at compile time, not at runtime and if there are any type errors, the TypeScript compiler will generate an error message and will not generate the JavaScript file i.e. the conversion will fail.
