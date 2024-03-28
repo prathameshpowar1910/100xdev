@@ -53,3 +53,34 @@ const user: User = {
 };
 
 console.log(isLegal(user));
+
+//* if you are making something like a react app then you can use typescript to define the props and state of the components
+
+// interface Props {
+//   name: string;
+//   age: number;
+// }
+
+// interface State {
+//   count: number;
+// }
+
+// function App() {
+//   return (
+//     <>
+//     <Title name="Prathamesh" age={20} />
+//     </>
+//   )
+// }
+
+// function Title(props: Props) {
+//   return (
+//     <h1>{props.name}</h1>
+//   )
+// }
+
+// function Title({name, age}: Props) {
+//   return (
+//     <h1>{name}</h1>
+//   )
+// }
