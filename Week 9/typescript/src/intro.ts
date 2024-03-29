@@ -84,3 +84,89 @@ console.log(isLegal(user));
 //     <h1>{name}</h1>
 //   )
 // }
+
+//? interfaces can also be implemented by classes
+
+interface Animal {
+  name: string;
+  makeSound(): void;
+}
+
+class Dog implements Animal {
+  name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  makeSound() {
+    console.log(`${this.name} is a dog who Barks`);
+  }
+}
+
+const dog = new Dog('Tommy');
+dog.makeSound();
+
+//? you can also extend interfaces
+
+interface Pet {
+  owner: string;
+}
+
+interface PetDog extends Animal, Pet {
+  breed: string;
+}
+
+class Dog2 implements PetDog {
+  name: string;
+  owner: string;
+  breed: string;
+  constructor(name: string, owner: string, breed: string) {
+    this.name = name;
+    this.owner = owner;
+    this.breed = breed;
+  }
+
+  makeSound() {
+    console.log(`${this.name} is a dog of ${this.breed} breed who Barks on his owner ${this.owner}`);
+  }
+}
+
+const dog2 = new Dog2('Tommy', 'Prathamesh', 'Labrador');
+dog2.makeSound();
+
+//? you can also use interfaces with functions
+
+interface Greet {
+  (name: string): void;
+}
+
+const greet2: Greet = (name: string) => {
+  console.log(`Hello ${name}`);
+}
+
+greet2('Prathamesh');
+
+//? you can also use interfaces with arrays
+
+interface StringArray {
+  [index: number]: string;
+}
+
+const names: StringArray = ['Prathamesh', 'Powar'];
+console.log(names[0]);
+
+
+//? Types in typescript
+
+type User1 = {
+  name: string;
+  age: number;
+}
+
+const user1: User1 = {
+  name: 'Prathamesh',
+  age: 20
+};
+
+console.log(user1);
+
