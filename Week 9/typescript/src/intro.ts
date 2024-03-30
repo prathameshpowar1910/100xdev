@@ -170,3 +170,40 @@ const user1: User1 = {
 
 console.log(user1);
 
+//? Array types
+
+type StringArray1 = string[];
+const names1: StringArray1 = ['Prathamesh', 'Powar'];
+console.log(names1);
+
+//? Enums
+
+enum Direction {
+  Up,
+  Down,
+  Left,
+  Right
+}
+
+enum Direction1 {
+  Up = 'UP',
+  Down = 'DOWN',
+  Left = 'LEFT',
+  Right = 'RIGHT'
+}
+//* alternatively you can also use type Direction = 'Up' | 'Down' | 'Left' | 'Right'
+
+function doSomething(keyPressed: Direction) {
+  if (keyPressed === Direction.Up) {
+    console.log(Direction.Up);
+  } //.... and so on ........
+}
+
+function doSomething1(keyPressed: Direction1) {
+  if (keyPressed === Direction1.Up) {
+    console.log(Direction1.Up);
+  } //.... and so on ........
+}
+
+doSomething(Direction.Up); // 0
+doSomething1(Direction1.Up); // UP

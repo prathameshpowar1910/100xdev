@@ -85,3 +85,231 @@ const teamLead: TeamLead = {
   department: "Software developer"
 };
 ```
+**Enums**: Enums allow you to define a set of named constants. For example, you can define an enum for the days of the week:
+```typescript
+enum Days {
+  Monday,
+  Tuesday,
+  Wednesday,
+  Thursday,
+  Friday,
+  Saturday,
+  Sunday
+}
+
+const today: Days = Days.Monday;
+console.log(today); // 0
+```
+
+**Type Assertions**: Type assertions allow you to tell the TypeScript compiler that a variable is of a specific type, even if the compiler cannot infer the type. For example, you can use a type assertion to tell the compiler that a variable is a string:
+```typescript
+let name: any = "Alice";
+let nameLength = (name as string).length;
+console.log(nameLength); // 5
+```
+
+**Type Guards**: Type guards allow you to check the type of a variable at runtime and perform different actions based on the type. For example, you can use a type guard to check if a variable is a string:
+```typescript
+function isString(value: any): value is string {
+  return typeof value === "string";
+}
+
+let value: any = "hello";
+
+if (isString(value)) {
+  console.log(value.toUpperCase());
+}
+```
+
+**Type Aliases**: Type aliases allow you to define custom types that can be used throughout your codebase. For example, you can define a type alias for a tuple of a string and a number:
+```typescript
+type StringNumberTuple = [string, number];
+
+function printTuple(tuple: StringNumberTuple) {
+  console.log(`Tuple: ${tuple[0]}, ${tuple[1]}`);
+}
+
+printTuple(["hello", 42]); // Tuple: hello, 42
+```
+
+**Mapped Types**: Mapped types allow you to create new types based on existing types. For example, you can create a mapped type that makes all properties of an object read-only:
+```typescript
+type Readonly<T> = {
+  readonly [P in keyof T]: T[P];
+};
+
+type Person = {
+  name: string;
+  age: number;
+};
+
+const person: Readonly<Person> = {
+  name: "Alice",
+  age: 30
+};
+
+person.name = "Bob"; // Error: Cannot assign to 'name' because it is a read-only property.
+```
+
+**Conditional Types**: Conditional types allow you to create types that depend on a condition. For example, you can create a conditional type that returns a string if a variable is a string, or a number if the variable is a number:
+```typescript
+type StringOrNumber<T> = T extends string ? string : number;
+
+let value: StringOrNumber<"hello"> = "hello";
+console.log(value); // hello
+
+value = 42;
+console.log(value); // 42
+```
+
+**Infer Keyword**: The infer keyword allows you to infer the type of a variable based on another type. For example, you can use the infer keyword to infer the return type of a function:
+```typescript
+type ReturnType<T> = T extends (...args: any[]) => infer R ? R : never;
+
+function add(a: number, b: number): number {
+  return a + b;
+}
+
+type AddReturnType = ReturnType<typeof add>;
+console.log(typeof add); // number
+```
+
+**Recursive Types**: Recursive types allow you to define types that reference themselves. For example, you can define a type that represents a binary tree:
+```typescript
+type TreeNode<T> = {
+  value: T;
+  left?: TreeNode<T>;
+  right?: TreeNode<T>;
+};
+
+const tree: TreeNode<number> = {
+  value: 1,
+  left: {
+    value: 2,
+    left: {
+      value: 3
+    }
+  },
+  right: {
+    value: 4
+  }
+};
+```
+
+**Template Literal Types**: Template literal types allow you to create new types by concatenating strings. For example, you can create a type that represents a CSS class name:
+```typescript
+type ClassName<T extends string> = `class-${T}`;
+
+let className: ClassName<"button"> = "class-button";
+console.log(className); // class-button
+```
+
+**Keyof Keyword**: The keyof keyword allows you to get the keys of an object as a union type. For example, you can use the keyof keyword to get the keys of a person object:
+```typescript
+type Person = {
+  name: string;
+  age: number;
+};
+
+type PersonKeys = keyof Person;
+console.log(PersonKeys); // "name" | "age"
+```
+
+**Indexed Access Types**: Indexed access types allow you to get the type of a property of an object. For example, you can use indexed access types to get the type of the name property of a person object:
+```typescript
+type Person = {
+  name: string;
+  age: number;
+};
+
+type NameType = Person["name"];
+console.log(NameType); // string
+```
+
+**Generics**: Generics allow you to define functions, classes, and interfaces that can work with any type. Generics are a language independant concept. . For example, you can define a generic function that reverses an array:
+```typescript
+function reverse<T>(array: T[]): T[] {
+  return array.reverse();
+}
+
+const numbers = <number>[1, 2, 3];
+const reversedNumbers = reverse(numbers);
+console.log(reversedNumbers); // [3, 2, 1]
+
+const strings = <string>["hello", "world"];
+const reversedStrings = reverse(strings);
+console.log(reversedStrings); // ["world", "hello"]
+```
+
+**Decorators**: Decorators allow you to add metadata to classes, methods, and properties. For example, you can use a decorator to log the name of a method when it is called:
+```typescript
+function log(target: any, key: string, descriptor: PropertyDescriptor) {
+  const originalMethod = descriptor.value;
+
+  descriptor.value = function(...args: any[]) {
+    console.log(`Calling method ${key}`);
+    return originalMethod.apply(this, args);
+  };
+
+  return descriptor;
+}
+
+class Example {
+  @log
+  greet(name: string) {
+    return `Hello, ${name}!`;
+  }
+}
+
+const example = new Example();
+example.greet("Alice"); // Calling method greet
+```
+
+**Mixins**: Mixins allow you to combine multiple classes into a single class. For example, you can create a mixin that adds logging functionality to a class:
+```typescript
+function Loggable<T extends new (...args: any[]) => {}>(Base: T) {
+  return class extends Base {
+    log(message: string) {
+      console.log(message);
+    }
+  };
+}
+
+class Example {
+  greet(name: string) {
+    return `Hello, ${name}!`;
+  }
+}
+
+const LoggableExample = Loggable(Example);
+const example = new LoggableExample();
+example.greet("Alice"); // Hello, Alice!
+example.log("Method called"); // Method called
+```
+
+**How can Enums be useful in creating a Express Framewaork Application?**
+- Enums can be useful in creating an Express framework application by defining named constants for HTTP status codes, request methods, and other values that are commonly used in web development. For example, you can define an enum for HTTP status codes:
+```typescript
+enum HttpStatus {
+  OK = 200,
+  NOT_FOUND = 404,
+  INTERNAL_SERVER_ERROR = 500
+}
+
+app.get("/users", (req, res) => {
+  const users = getUsers();
+  if (users) {
+    res.status(HttpStatus.OK).json(users);
+  } else {
+    res.status(HttpStatus.INTERNAL_SERVER_ERROR).send("Internal server error");
+  }
+});
+```
+- Enums can also be used to define named constants for request methods, content types, and other values that are used in routing and middleware functions. Enums can help make the code more readable and maintainable by providing descriptive names for common values.
+
+**How can you use TypeScript in a Node.js application?**
+- TypeScript can be used in a Node.js application by installing the TypeScript compiler and configuring a tsconfig.json file. The tsconfig.json file specifies the compiler options and project settings for the TypeScript project. Once the tsconfig.json file is set up, you can write TypeScript code in .ts files and compile it into JavaScript code using the tsc command.
+
+**How can you use TypeScript in a React application?**
+- TypeScript can be used in a React application by installing the TypeScript compiler and configuring a tsconfig.json file. The tsconfig.json file specifies the compiler options and project settings for the TypeScript project. Once the tsconfig.json file is set up, you can write TypeScript code in .tsx files and compile it into JavaScript code using the tsc command. You can also use the create-react-app tool to create a new React project with TypeScript support.
+
